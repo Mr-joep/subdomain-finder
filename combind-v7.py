@@ -61,7 +61,7 @@ def merge_csv_files(source_dir, output_dir):
         os.makedirs(result_path, exist_ok=True)
         
         # Generate the output filename with folder name and timestamp
-        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
         folder_name = os.path.basename(folder_path)
         output_filename = f"{folder_name}_{timestamp}.csv"
         output_file_path = os.path.join(result_path, output_filename)

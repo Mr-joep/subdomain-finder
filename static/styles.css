@@ -1,0 +1,43 @@
+#input-area {
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+}
+
+#left-column, #right-column {
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    width: 49%;
+    overflow: auto;
+    padding: 10px;
+}
+
+#left-column {
+    left: 0;
+    background-color: #eee;
+}
+
+#right-column {
+    right: 0;
+    background-color: #ccc;
+}
+
+#csvDisplay {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}

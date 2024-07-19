@@ -77,6 +77,21 @@ function viewCSV(filePath) {
     window.location.href = `/csv-viewer/${filePath}`;
 }
 
+function startScript() {
+    fetch('/start-script', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => alert('Script started'))
+        .catch(error => console.error('Error starting script:', error));
+}
+
+function stopScript() {
+    fetch('/stop-script', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => alert('Script stopped'))
+        .catch(error => console.error('Error stopping script:', error));
+}
+
+
 // Call loadData and loadResults once immediately and then at intervals
 loadData();
 loadResults();

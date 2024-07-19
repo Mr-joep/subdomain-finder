@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify, render_template
 import os
 import pandas as pd
+import subprocess
 
 app = Flask(__name__)
+script_process = None
 
 @app.route('/')
 def home():
@@ -42,11 +44,29 @@ def csv_viewer(filename):
 
     try:
         df = pd.read_csv(file_path)
-        # Strip extra newline characters
         table_html = df.to_html(classes='data', header="true").strip()
         return render_template('csv_viewer.html', table_html=table_html)
     except Exception as e:
         return str(e), 500
+
+@app.route('/start-script', methods=['POST'])
+def start_script():
+    global script_process
+    if script_process is None or script_process.poll() is not None:
+        script_process = subprocess.Popen(['python3', 'controller-v1.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        return jsonify({"message": "Script started"})
+    else:
+        return jsonify({"message": "Script is already running"})
+
+@app.route('/stop-script', methods=['POST'])
+def stop_script():
+    global script_process
+    if script_process is not None:
+        script_process.terminate()
+        script_process.wait()
+        script_process = None
+        return jsonify({"message": "Script stopped"})
+    return jsonify({"message": "No script is running"})
 
 if __name__ == '__main__':
     app.run(debug=True)
